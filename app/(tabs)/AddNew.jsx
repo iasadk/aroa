@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Profile = () => {
+const AddNew = () => {
   return (
     <View>
-      <Text>Profile</Text>
+      <Text>AddNew</Text>
     </View>
   )
 }
 
-export default Profile
+export default AddNew
