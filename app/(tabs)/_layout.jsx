@@ -2,7 +2,9 @@ import { Tabs } from 'expo-router'
 import React from 'react'
 import {Ionicons} from '@expo/vector-icons'
 const RootLayout = () => {
-    return <Tabs>
+    return <Tabs screenOptions={{
+        headerShown: false
+    }}>
         <Tabs.Screen name="index" options={{
             title: "Home",
             tabBarIcon: ({ color, size }) => (

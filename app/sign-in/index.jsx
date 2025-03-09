@@ -1,32 +1,41 @@
 import React, { useState } from 'react'
-import { Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { cn } from '../../utils/cn'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import CustomAlert from '../../components/Alert'
+import { setLocalStorageItem } from '../../service/Storage'
+import {useAuth} from '../../providers/AuthContext'
 const SignIn = () => {
   const [data, setData] = useState({
     email: "",
     password: ""
-  })
+  });
+  const {isLoading, login} = useAuth()
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const router = useRouter();
 
   const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const handleSubmit = ()=>{
-    if(!data.email.trim() || !data.password.trim()){
+  const handleSubmit = async () => {
+    if (!data.email.trim() || !data.password.trim()) {
       // Add toast.
       CustomAlert(`Email and password is required.`)
     }
 
-    if(!validateEmail(data.email)){
+    if (!validateEmail(data.email)) {
       CustomAlert('Please enter a valid email.')
+    }
+    
+    const isLoggedIn = await login(data);
+
+    if(isLoggedIn){
+      router.replace('/(tabs)')
     }
   }
   return (
@@ -77,7 +86,7 @@ const SignIn = () => {
           </View>
 
           <TouchableOpacity className="bg-primary rounded-lg" onPress={handleSubmit}>
-            <Text className="text-center py-2 text-2xl font-medium text-white">Sign In</Text>
+            {isLoading ? <ActivityIndicator size="large" color="white" /> : <Text className="text-center py-2 text-2xl font-medium text-white">Sign In</Text>}
           </TouchableOpacity>
           <Text className="text-center underline text-xl" onPress={() => {
             router.push('sign-up')

@@ -1,16 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Redirect } from 'expo-router'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useAuth } from '../../providers/AuthContext'
 
 const TabIndex = () => {
+
   return (
     <View>
       <Text className="bg-red-500">TabIndex</Text>
-      <Redirect href={"login"}/>
     </View>
   )
 }
 
-export default TabIndex
-
-const styles = StyleSheet.create({})
+export default TabIndex;

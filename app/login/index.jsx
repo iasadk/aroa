@@ -15,7 +15,7 @@ const Login = () => {
             <Text className="text-white text-center text-lg">Track your meds, take control of your health. Stay consistent, staty confident!</Text>
 
           <TouchableOpacity className={cn("border border-dashed  border-blue-600  rounded-full bg-white py-4 mt-8")} 
-          onPress={()=>router.push('sign-in')}
+          onPress={()=>router.replace('sign-in')}
           >
               <Text className={cn("text-primary text-center text-2xl")}>Continue</Text>
           </TouchableOpacity>
